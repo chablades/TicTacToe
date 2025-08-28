@@ -1,2 +1,5 @@
-# TicTacToe_CS3560_
-Cal Poly Pomona CS 3560 Class Project
+Tic Tac Toe Project for CS3650
+
+Collaborators:
+Nicolas Tran
+Diego M
