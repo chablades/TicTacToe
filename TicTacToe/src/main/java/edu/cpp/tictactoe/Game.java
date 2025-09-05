@@ -15,7 +15,6 @@ public class Game {
     }
 
     public void run() {
-        boolean running = true;
         // run () loop
         while (board.winner().isEmpty() && !board.isFull()) {
             //Ask current player for Move, pace the move on the board, then print board

@@ -114,8 +114,4 @@ public class Board {
         }
     }
 
-    //Getter for size
-    public int getSize() {
-        return size;
-    }
 }
