@@ -19,7 +19,19 @@ public class Game {
         while (board.winner().isEmpty() && !board.isFull()) {
             //Ask current player for Move, pace the move on the board, then print board
             Move move = current.nextMove(board);
-            board.place(move);
+            /*try:
+            {
+                board.place(move);
+            }
+            catch (IllegalArgumentException ex){
+                System.out.println("Invalid move" + ex.getMessage()){
+
+                }
+
+
+
+            }
+        */
             printBoard();
             // Check winner() or draw, if neither, continue the game
             if (board.winner().isEmpty()) {

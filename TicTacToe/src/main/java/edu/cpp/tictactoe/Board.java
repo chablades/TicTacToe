@@ -2,7 +2,7 @@ package edu.cpp.tictactoe;
 import java.util.Optional;
 
 public class Board {
-    private Mark[][] grid;
+    private final Mark[][] grid;
     private final int size;
 
     // Constructor
@@ -15,7 +15,7 @@ public class Board {
 
     // Place move onto board
     public void place(Move mv) {
-        grid[mv.row][mv.col] = mv.mark;
+        grid[mv.getRow()][mv.getCol()] = mv.getMark();
     }
 
     // Get cell (current player) on board
@@ -113,5 +113,10 @@ public class Board {
             }
         }
     }
+
+    public int getSize(){
+        return size;
+    }
+
 
 }

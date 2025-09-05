@@ -1,5 +1,6 @@
 package edu.cpp.tictactoe;
 public abstract class Player {
+
     private Mark mark;
 
     // Constructor
