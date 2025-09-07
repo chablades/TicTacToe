@@ -19,33 +19,27 @@ public class Game {
         while (board.winner().isEmpty() && !board.isFull()) {
             //Ask current player for Move, pace the move on the board, then print board
             Move move = current.nextMove(board);
-            /*try:
+            try
             {
                 board.place(move);
-            }
-            catch (IllegalArgumentException ex){
-                System.out.println("Invalid move" + ex.getMessage()){
-
+                if (board.winner().isEmpty()) {
+                    swapCurrent();
                 }
-
-
-
             }
-        */
+            catch (IllegalArgumentException ex) {
+                System.out.println("Invalid move" + ex.getMessage());
+            }
             printBoard();
             // Check winner() or draw, if neither, continue the game
-            if (board.winner().isEmpty()) {
-                swapCurrent();
-            }
 
+        }
             //Game Over (if board.winner().isEmpty is false)
             if (board.winner().isPresent()) {
-                System.out.println("Winner: ");
+                System.out.println("Winner: Player " + current.getMark());
             } else {
                 System.out.println("It's a draw.");
             }
         }
-    }
 
     private void swapCurrent() {
         current = (current == p1) ? p2 : p1;
@@ -60,7 +54,7 @@ public class Game {
             }
             System.out.println();
             if (r < size - 1) {
-                System.out.println("---+---+---");
+                System.out.println("+---+---+");
             }
         }
         System.out.println();

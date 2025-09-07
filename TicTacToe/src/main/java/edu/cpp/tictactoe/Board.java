@@ -15,6 +15,9 @@ public class Board {
 
     // Place move onto board
     public void place(Move mv) {
+        if (grid[mv.getRow()][mv.getCol()] != Mark.EMPTY) {
+            throw new IllegalArgumentException("Cell already taken at (" + mv.getRow() + ", " + mv.getCol() + ")");
+        }
         grid[mv.getRow()][mv.getCol()] = mv.getMark();
     }
 
