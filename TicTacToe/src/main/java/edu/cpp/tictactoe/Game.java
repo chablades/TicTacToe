@@ -36,7 +36,7 @@ public class Game {
             //Game Over (if board.winner().isEmpty is false)
             if (board.winner().isPresent()) {
                 System.out.println("Winner: Player " + current.getMark());
-            } else {
+            } else if(board.isDraw()){
                 System.out.println("It's a draw.");
             }
         }
@@ -70,5 +70,6 @@ public class Game {
             case EMPTY -> ' ';
         };
     }
+
 
 }

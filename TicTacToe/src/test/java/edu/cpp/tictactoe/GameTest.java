@@ -1,20 +1,82 @@
 package edu.cpp.tictactoe;
 
-import java.util.Random;
+import org.junit.jupiter.api.Test;
 
-public class GameTest {
-    public static void main(String[] args) {
-        // Create a 3x3 board
+import java.util.List;
+import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+class GameTest {
+
+    /**
+     * Test double for Player that returns moves from a predefined list.
+     */
+    static class ScriptedPlayer extends Player {
+        private final List<Move> moves;
+        private int index = 0;
+
+        ScriptedPlayer(Mark mark, List<Move> moves) {
+            super(mark);
+            this.moves = moves;
+        }
+
+        @Override
+        public Move nextMove(Board board) {
+            if (index >= moves.size()) {
+                throw new IllegalStateException("No more scripted moves");
+            }
+            return moves.get(index++);
+        }
+    }
+
+    @Test
+    void scriptedGameEndsWithRowWinForX() {
         Board board = new Board(3);
 
-        // Create two players (assuming Player takes a name and a Mark)
-        Player p1 = new HumanPlayer(Mark.X);
-        Player p2 = new RandomAIPlayer(Mark.O);
+        // X will win on the top row
+        ScriptedPlayer p1 = new ScriptedPlayer(Mark.X, List.of(
+                new Move(0, 0, Mark.X),
+                new Move(0, 1, Mark.X),
+                new Move(0, 2, Mark.X)
+        ));
 
-        // Create the game
+        ScriptedPlayer p2 = new ScriptedPlayer(Mark.O, List.of(
+                new Move(1, 0, Mark.O),
+                new Move(1, 1, Mark.O)
+        ));
+
         Game game = new Game(p1, p2, board);
-
-        // Run the game
         game.run();
+
+        assertEquals(Optional.of(Mark.X), board.winner());
+        assertFalse(board.isFull()); // ended early
+    }
+
+    @Test
+    void scriptedGameEndsInDraw() {
+        Board board = new Board(3);
+
+        // Sequence of moves that fills the board with no winner
+        ScriptedPlayer p1 = new ScriptedPlayer(Mark.X, List.of(
+                new Move(0, 0, Mark.X),
+                new Move(0, 2, Mark.X),
+                new Move(1, 2, Mark.X),
+                new Move(1, 1, Mark.X),
+                new Move(2, 1, Mark.X)
+        ));
+
+        ScriptedPlayer p2 = new ScriptedPlayer(Mark.O, List.of(
+                new Move(0, 1, Mark.O),
+                new Move(1, 0, Mark.O),
+                new Move(2, 0, Mark.O),
+                new Move(2, 2, Mark.O)
+        ));
+
+        Game game = new Game(p1, p2, board);
+        game.run();
+
+        assertTrue(board.isFull());
+        assertEquals(Optional.empty(), board.winner());
     }
 }

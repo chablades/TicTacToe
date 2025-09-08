@@ -1,25 +1,76 @@
 package edu.cpp.tictactoe;
-import java.util.Scanner;
 
-public class BoardTest {
-    public static void main(String[] args) {
-        // Create any size board n > 2
-        Scanner input = new Scanner(System.in);
-        int board_size = 0;
-        while (board_size < 3 || board_size > 9) {
-            System.out.println("What board size do you want (3-9)? ");
-            board_size = input.nextInt();
-        }
-        Board board = new Board(board_size);
+import org.junit.jupiter.api.Test;
 
-        // Create two players (assuming Player takes a name and a Mark)
-        Player p1 = new HumanPlayer(Mark.X);
-        Player p2 = new HumanPlayer(Mark.O);
+import java.util.Optional;
 
-        // Create the game
-        Game game = new Game(p1, p2, board);
+import static org.junit.jupiter.api.Assertions.*;
 
-        // Run the game
-        game.run();
+
+class BoardTest {
+    @Test
+    void placeValidMark(){
+        Board b = new Board(3);
+        b.place(new Move(0, 0, Mark.X));
+        assertEquals(Mark.X,b.getCell(0, 0));
     }
+
+    @Test
+    void rejectOccupiedMark(){
+        Board b = new Board(3);
+        b.place(new Move(0, 0, Mark.X));
+        assertThrows(IllegalArgumentException.class, () -> b.place(new Move(0, 0, Mark.O)));
+    }
+
+    @Test
+    void rejectOutofBoundsMark(){
+        Board b = new Board(3);
+        assertThrows(ArrayIndexOutOfBoundsException.class, () -> b.place(new Move(3, 0, Mark.O)));
+    }
+
+    @Test
+    void validMovesCheck(){
+        Board b = new Board(3);
+        b.place(new Move(0, 0, Mark.O));
+        b.place(new Move(0, 1, Mark.X));
+        b.place(new Move(0, 2, Mark.O));
+        b.place(new Move(1, 0, Mark.X));
+        b.place(new Move(1, 1, Mark.O));
+        b.place(new Move(1, 2, Mark.X));
+        assertEquals(Optional.empty(), b.winner());
+        assertEquals(Mark.X,b.getCell(0, 1));
+    }
+
+    @Test
+    void rowWinDetected() {
+        Board b = new Board(3);
+        b.place(new Move(0, 0, Mark.X));
+        b.place(new Move(1, 0, Mark.O));
+        b.place(new Move(0, 1, Mark.X));
+        b.place(new Move(1, 1, Mark.O));
+        b.place(new Move(0, 2, Mark.X));
+        assertEquals(Optional.of(Mark.X), b.winner());
+    }
+    @Test
+    void colWinDetected() {
+        Board b = new Board(3);
+        b.place(new Move(0, 0, Mark.X));
+        b.place(new Move(1, 2, Mark.O));
+        b.place(new Move(0, 1, Mark.X));
+        b.place(new Move(1, 0, Mark.O));
+        b.place(new Move(0, 2, Mark.X));
+        assertEquals(Optional.of(Mark.X), b.winner());
+    }
+    @Test
+    void diagonalWinDetected(){
+        Board b = new Board(3);
+        b.place(new Move(0, 0, Mark.X));
+        b.place(new Move(0, 2, Mark.O));
+        b.place(new Move(1, 1, Mark.X));
+        b.place(new Move(2, 0, Mark.O));
+        b.place(new Move(2, 2, Mark.X));
+        assertEquals(Optional.of(Mark.X), b.winner());
+    }
+
+
 }

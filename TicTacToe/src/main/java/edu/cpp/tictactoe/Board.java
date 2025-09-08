@@ -121,5 +121,8 @@ public class Board {
         return size;
     }
 
+    public boolean isDraw() {
+        return isFull() && winner().isEmpty();
+    }
 
 }
