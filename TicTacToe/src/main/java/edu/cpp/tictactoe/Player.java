@@ -1,7 +1,7 @@
 package edu.cpp.tictactoe;
 public abstract class Player {
 
-    private Mark mark;
+    protected final  Mark mark;
 
     // Constructor
     public Player(Mark mark) {

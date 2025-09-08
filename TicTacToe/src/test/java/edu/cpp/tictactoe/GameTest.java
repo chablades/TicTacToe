@@ -54,6 +54,29 @@ class GameTest {
     }
 
     @Test
+    void scriptedGameEndsWithRowWinForO() {
+        Board board = new Board(3);
+
+        // X will win on the top row
+        ScriptedPlayer p1 = new ScriptedPlayer(Mark.X, List.of(
+                new Move(0, 0, Mark.O),
+                new Move(0, 1, Mark.O),
+                new Move(0, 2, Mark.O)
+        ));
+
+        ScriptedPlayer p2 = new ScriptedPlayer(Mark.O, List.of(
+                new Move(1, 0, Mark.X),
+                new Move(1, 1, Mark.X)
+        ));
+
+        Game game = new Game(p1, p2, board);
+        game.run();
+
+        assertEquals(Optional.of(Mark.O), board.winner());
+        assertFalse(board.isFull()); // ended early
+    }
+
+    @Test
     void scriptedGameEndsInDraw() {
         Board board = new Board(3);
 

@@ -72,5 +72,15 @@ class BoardTest {
         assertEquals(Optional.of(Mark.X), b.winner());
     }
 
+    @Test
+    void opposite_diagonalWinDetected(){
+        Board b = new Board(3);
+        b.place(new Move(0, 2, Mark.X));
+        b.place(new Move(1, 2, Mark.O));
+        b.place(new Move(1, 1, Mark.X));
+        b.place(new Move(2, 1, Mark.O));
+        b.place(new Move(2, 0, Mark.X));
+        assertEquals(Optional.of(Mark.X), b.winner());
+    }
 
 }
