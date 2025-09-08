@@ -1,17 +1,26 @@
 package edu.cpp.tictactoe;
+import javax.swing.text.html.Option;
 import java.util.Optional;
 
 public class Board {
     private final Mark[][] grid;
     private final int size;
+    private int winCondition;
 
     // Constructor
-    public Board(int size) {
+    public Board(int size, int winCondition) {
+        if (size < 3) {
+            throw new IllegalArgumentException("Board size must be at least 3");
+        }
+        if (winCondition > size) {
+            throw new IllegalArgumentException("Win condition cannot be greater than board size");
+        }
         this.size = size;
+        this.winCondition = winCondition;
         this.grid = new Mark[size][size];
-
         reset();
     }
+
 
     // Place move onto board
     public void place(Move mv) {
@@ -42,70 +51,77 @@ public class Board {
     public Optional<Mark> winner() {
 
         // Check rows
-        for (int i = 0; i < grid.length; i++) {
-            Mark cell = grid[i][0];
-            if (cell != Mark.EMPTY) {
-                boolean winner = true;
-
-                for (int j = 0; j < grid[i].length; j++) {
-                    if (grid[i][j] != cell) {
-                        winner = false;
-                        break;
+        for (int r = 0; r < size; r++) {
+            for (int c = 0; c <= size - winCondition; c++) {
+                Mark cell = grid[r][c];
+                if (cell != Mark.EMPTY) {
+                    boolean winner = true;
+                    for (int k = 1; k < winCondition; k++) {
+                        if (grid[r][c + k] != cell) {
+                            winner = false;
+                            break;
+                        }
                     }
+                    if (winner) return Optional.of(cell);
                 }
-
-                if (winner) return Optional.of(cell);
             }
         }
+
 
         // Check columns
-        for (int i = 0; i < grid.length; i++) {
-            Mark cell = grid[0][i];
-            if (cell != Mark.EMPTY) {
-                boolean winner = true;
-
-                for (int j = 0; j < grid[i].length; j++) {
-                    if (grid[j][i] != cell) {
-                        winner = false;
-                        break;
+        for (int c = 0; c < size; c++) {
+            for (int r = 0; r <= size - winCondition; r++) {
+                Mark cell = grid[r][c];
+                if (cell != Mark.EMPTY) {
+                    boolean winner = true;
+                    for (int k = 1; k < winCondition; k++) {
+                        if (grid[r + k][c] != cell) {
+                            winner = false;
+                            break;
+                        }
                     }
+                    if (winner) return Optional.of(cell);
                 }
-
-                if (winner) return Optional.of(cell);
             }
         }
+
 
         // Check diagonal (Top Left to Bottom Right)
-        Mark cell = grid[0][0];
-        if (cell != Mark.EMPTY) {
-
-            boolean winner = true;
-
-            for (int i = 0; i < grid[0].length; i++) {
-                if (grid[i][i] != cell) {
-                    winner = false;
-                    break;
+        for (int r = 0; r <= size - winCondition; r++) {
+            for (int c = 0; c <= size - winCondition; c++) {
+                Mark cell = grid[r][c];
+                if (cell != Mark.EMPTY) {
+                    boolean winner = true;
+                    for (int k = 1; k < winCondition; k++) {
+                        if (grid[r + k][c + k] != cell) {
+                            winner = false;
+                            break;
+                        }
+                    }
+                    if (winner) return Optional.of(cell);
                 }
             }
-            if (winner) return Optional.of(cell);
         }
+
 
         // Check diagonal (Top Right to Bottom Left)
-        cell = grid[0][grid.length - 1];
-        if (cell != Mark.EMPTY) {
-
-            boolean winner = true;
-
-            for (int i = 0; i < grid[0].length; i++) {
-                if (grid[i][grid.length - i - 1] != cell) {
-                    winner = false;
-                    break;
+        for (int r = 0; r <= size - winCondition; r++) {
+            for (int c = winCondition - 1; c < size; c++) {
+                Mark cell = grid[r][c];
+                if (cell != Mark.EMPTY) {
+                    boolean winner = true;
+                    for (int k = 1; k < winCondition; k++) {
+                        if (grid[r + k][c - k] != cell) {
+                            winner = false;
+                            break;
+                        }
+                    }
+                    if (winner) return Optional.of(cell);
                 }
             }
-            if (winner) return Optional.of(cell);
         }
-
         return Optional.empty();
+
     }
 
     // Reset board
