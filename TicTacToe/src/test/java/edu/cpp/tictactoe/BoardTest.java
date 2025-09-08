@@ -1,9 +1,13 @@
 package edu.cpp.tictactoe;
+import java.util.Scanner;
 
 public class BoardTest {
     public static void main(String[] args) {
-        // Create a 3x3 board
-        Board board = new Board(3);
+        // Create any size board n > 2
+        Scanner input = new Scanner(System.in);
+        System.out.println("What board size do you want? ");
+        int board_size = input.nextInt();
+        Board board = new Board(board_size);
 
         // Create two players (assuming Player takes a name and a Mark)
         Player p1 = new HumanPlayer(Mark.X);
