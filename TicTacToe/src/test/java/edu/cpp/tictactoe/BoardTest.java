@@ -5,8 +5,11 @@ public class BoardTest {
     public static void main(String[] args) {
         // Create any size board n > 2
         Scanner input = new Scanner(System.in);
-        System.out.println("What board size do you want? ");
-        int board_size = input.nextInt();
+        int board_size = 0;
+        while (board_size < 3 || board_size > 9) {
+            System.out.println("What board size do you want (3-9)? ");
+            board_size = input.nextInt();
+        }
         Board board = new Board(board_size);
 
         // Create two players (assuming Player takes a name and a Mark)

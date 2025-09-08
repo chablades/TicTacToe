@@ -48,15 +48,16 @@ public class Game {
     private void printBoard() {
         int size = board.getSize();
         for (int r = 0; r < size; r++) {
+            System.out.print(" ");
             for (int c = 0; c < size; c++) {
-                System.out.print(symbol(board.getCell(r, c)));
+                System.out.print(" " + symbol(board.getCell(r, c)) + " ");
                 if (c < size - 1){
-                    System.out.print(" | ");
+                    System.out.print("|");
                     }
             }
             System.out.println();
             if (r < size - 1) {
-                System.out.println("+---".repeat(Math.max(0, board.getSize() - 1)) + "+");
+                System.out.println("+---".repeat(Math.max(0, board.getSize())) + "+");
             }
         }
         System.out.println();

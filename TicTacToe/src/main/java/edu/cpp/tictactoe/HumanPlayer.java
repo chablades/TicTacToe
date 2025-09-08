@@ -11,18 +11,28 @@ public class HumanPlayer extends Player {
     public Move nextMove(Board board){
         while (true) {
             try {
-                System.out.print("Player " + getMark() + ", enter your move (row and column): ");
-                int row = input.nextInt();
-                int col = input.nextInt();
+                System.out.print("Player " + getMark() + ", enter your move (row and column, separated by space): ");
+                int row;
+                int col;
 
-                if (row < 0 || row >= board.getSize() || col < 0 || col >= board.getSize()) {
-                    System.out.println("Coordinates out of bounds. Try again.");
-                    continue;
+                if (input.hasNextInt()) {
+                    row = input.nextInt();
+                    if (input.hasNextInt()) {
+                        col = input.nextInt();
+                        if (row < 0 || row >= board.getSize() || col < 0 || col >= board.getSize()) {
+                            throw new Exception("Coordinate out of bounds. Please try again.");
+                        }
+                        return new Move(row, col, getMark());
+                    }
+                    else {
+                        throw new Exception("Please enter two integers (row and column, separated by space)");
+                    }
                 }
-
-                return new Move(row, col, getMark());
+                else {
+                    throw new Exception("Please enter two integers (row and column, separated by space)");
+                }
             } catch (Exception e) {
-                System.out.println("Invalid input. Please enter two integers separated by space.");
+                System.out.println(e.getMessage());
                 input.nextLine();
             }
 
