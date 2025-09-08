@@ -1,11 +1,11 @@
 package edu.cpp.tictactoe;
-import javax.swing.text.html.Option;
+import java.util.Arrays;
 import java.util.Optional;
 
 public class Board {
     private final Mark[][] grid;
     private final int size;
-    private int winCondition;
+    private final int winCondition;
 
     // Constructor
     public Board(int size, int winCondition) {
@@ -127,9 +127,7 @@ public class Board {
     // Reset board
     public void reset() {
         for (int i = 0; i < grid.length; i++) {
-            for (int j = 0; j < grid[i].length; j++) {
-                grid[i][j] = Mark.EMPTY;
-            }
+            Arrays.fill(grid[i], Mark.EMPTY);
         }
     }
 
@@ -137,5 +135,6 @@ public class Board {
         return size;
     }
 
+    public int getWinCondition() {return winCondition; }
 
 }
