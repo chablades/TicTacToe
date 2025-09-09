@@ -28,4 +28,9 @@ public class Move {
         return mark;
     }
 
+    @Override
+    public String toString() {
+        return "Move[row=" + row + ", col=" + col + ", mark=" + mark + "]";
+    }
+
 }
