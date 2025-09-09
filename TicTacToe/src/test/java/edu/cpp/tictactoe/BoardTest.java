@@ -10,7 +10,7 @@ public class BoardTest {
             System.out.println("What board size do you want (3-9)? ");
             board_size = input.nextInt();
         }
-        Board board = new Board(board_size);
+        Board board = new Board(board_size, board_size);
 
         // Create two players (assuming Player takes a name and a Mark)
         Player p1 = new HumanPlayer(Mark.X);
