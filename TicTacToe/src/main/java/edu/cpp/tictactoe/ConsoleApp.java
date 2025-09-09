@@ -49,6 +49,7 @@ public class ConsoleApp {
         Player human_Player = new HumanPlayer(Mark.X);
         Player random_ai_Player = new RandomAIPlayer(Mark.O);
         Player smart_ai_Player = new SmartAIPlayer((Mark. O));
+        Player miniMax_ai_Player = new MinimaxAIPlayer((Mark. O), 5);
 
         //Mark the easy AI as random, mark the normal AI as smart_ai, and mark mini_max AI as hard
         Player chosen_player;
@@ -67,7 +68,7 @@ public class ConsoleApp {
                         break;
                     case 3:
                         System.out.println("You have chosen 'hard'");
-                        chosen_player = smart_ai_Player; // replace with minimax_ai_Player later
+                        chosen_player = miniMax_ai_Player; // replace with minimax_ai_Player later
                         break;
                     default:
                         System.out.println("Invalid choice.");

@@ -32,7 +32,7 @@ class GameTest {
 
     @Test
     void scriptedGameEndsWithRowWinForX() {
-        Board board = new Board(3);
+        Board board = new Board(3,3);
 
         // X will win on the top row
         ScriptedPlayer p1 = new ScriptedPlayer(Mark.X, List.of(
@@ -55,7 +55,7 @@ class GameTest {
 
     @Test
     void scriptedGameEndsWithRowWinForO() {
-        Board board = new Board(3);
+        Board board = new Board(3,3);
 
         // X will win on the top row
         ScriptedPlayer p1 = new ScriptedPlayer(Mark.X, List.of(
@@ -78,7 +78,7 @@ class GameTest {
 
     @Test
     void scriptedGameEndsInDraw() {
-        Board board = new Board(3);
+        Board board = new Board(3,3);
 
         // Sequence of moves that fills the board with no winner
         ScriptedPlayer p1 = new ScriptedPlayer(Mark.X, List.of(

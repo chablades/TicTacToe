@@ -33,13 +33,13 @@ public class Game {
             // Check winner() or draw, if neither, continue the game
 
         }
-            //Game Over (if board.winner().isEmpty is false)
-            if (board.winner().isPresent()) {
-                System.out.println("Winner: Player " + current.getMark());
-            } else if(board.isDraw()){
-                System.out.println("It's a draw.");
-            }
+        //Game Over (if board.winner().isEmpty is false)
+        if (board.winner().isPresent()) {
+            System.out.println("Winner: Player " + current.getMark());
+        } else {
+            System.out.println("It's a draw.");
         }
+    }
 
     private void swapCurrent() {
         current = (current == p1) ? p2 : p1;
@@ -53,7 +53,7 @@ public class Game {
                 System.out.print(" " + symbol(board.getCell(r, c)) + " ");
                 if (c < size - 1){
                     System.out.print("|");
-                    }
+                }
             }
             System.out.println();
             if (r < size - 1) {
@@ -70,6 +70,5 @@ public class Game {
             case EMPTY -> ' ';
         };
     }
-
 
 }

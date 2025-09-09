@@ -10,27 +10,27 @@ import static org.junit.jupiter.api.Assertions.*;
 class BoardTest {
     @Test
     void placeValidMark(){
-        Board b = new Board(3);
+        Board b = new Board(3, 3);
         b.place(new Move(0, 0, Mark.X));
         assertEquals(Mark.X,b.getCell(0, 0));
     }
 
     @Test
     void rejectOccupiedMark(){
-        Board b = new Board(3);
+        Board b = new Board(3, 3);
         b.place(new Move(0, 0, Mark.X));
         assertThrows(IllegalArgumentException.class, () -> b.place(new Move(0, 0, Mark.O)));
     }
 
     @Test
     void rejectOutofBoundsMark(){
-        Board b = new Board(3);
+        Board b = new Board(3, 3);
         assertThrows(ArrayIndexOutOfBoundsException.class, () -> b.place(new Move(3, 0, Mark.O)));
     }
 
     @Test
     void validMovesCheck(){
-        Board b = new Board(3);
+        Board b = new Board(3, 3);
         b.place(new Move(0, 0, Mark.O));
         b.place(new Move(0, 1, Mark.X));
         b.place(new Move(0, 2, Mark.O));
@@ -43,7 +43,7 @@ class BoardTest {
 
     @Test
     void rowWinDetected() {
-        Board b = new Board(3);
+        Board b = new Board(3, 3);
         b.place(new Move(0, 0, Mark.X));
         b.place(new Move(1, 0, Mark.O));
         b.place(new Move(0, 1, Mark.X));
@@ -53,7 +53,7 @@ class BoardTest {
     }
     @Test
     void colWinDetected() {
-        Board b = new Board(3);
+        Board b = new Board(3, 3);
         b.place(new Move(0, 0, Mark.X));
         b.place(new Move(1, 2, Mark.O));
         b.place(new Move(0, 1, Mark.X));
@@ -63,7 +63,7 @@ class BoardTest {
     }
     @Test
     void diagonalWinDetected(){
-        Board b = new Board(3);
+        Board b = new Board(3, 3);
         b.place(new Move(0, 0, Mark.X));
         b.place(new Move(0, 2, Mark.O));
         b.place(new Move(1, 1, Mark.X));
@@ -74,7 +74,7 @@ class BoardTest {
 
     @Test
     void opposite_diagonalWinDetected(){
-        Board b = new Board(3);
+        Board b = new Board(3, 3);
         b.place(new Move(0, 2, Mark.X));
         b.place(new Move(1, 2, Mark.O));
         b.place(new Move(1, 1, Mark.X));
